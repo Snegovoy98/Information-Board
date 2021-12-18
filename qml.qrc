@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>resources/background_images/Background.jpg</file>
+        <file>resources/slider_images/Phoenix.jpg</file>
+        <file>resources/buttons_img/arrow_left.png</file>
+        <file>resources/buttons_img/arrow_right.png</file>
     </qresource>
 </RCC>
