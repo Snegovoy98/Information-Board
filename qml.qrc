@@ -5,5 +5,7 @@
         <file>resources/slider_images/Phoenix.jpg</file>
         <file>resources/buttons_img/arrow_left.png</file>
         <file>resources/buttons_img/arrow_right.png</file>
+        <file>resources/control_buttons/add_btn.png</file>
+        <file>resources/control_buttons/rm_btn.png</file>
     </qresource>
 </RCC>
