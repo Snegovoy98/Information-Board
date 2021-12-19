@@ -12,14 +12,18 @@ ApplicationWindow {
         id: mainObject
         readonly property string fontFamily: "Decorative"
         readonly property int fontPointSize: 14
+        readonly property int clockPointSize: 20
         readonly property double oneSecondPart: 1/2
         readonly property double oneThirdPart: 1/3
         readonly property double borderRadius: 8
+        readonly property double borderWidth: 1
+        readonly property string borderColor: "gray"
         readonly property double controlButtonsSize: 15
         readonly property int sliderButtonsSize: 25
         readonly property int sliderImageSize: 35
         readonly property double tenPercent: 0.1
         readonly property double fifteenPercent: 0.15
+        readonly property double thirtyPercent: 0.3
         readonly property double eightyPercent: 0.8
         readonly property double ninetyPercent: 0.9
         readonly property int oneImg: 1
@@ -31,7 +35,6 @@ ApplicationWindow {
         id: borderImg
         source: "resources/background_images/Background.jpg"
         anchors.fill: parent
-
 
         Rectangle {
             id: mainSliderRect
@@ -193,6 +196,26 @@ ApplicationWindow {
                         onClicked: imagesLV.incrementCurrentIndex()
                     }
                 }
+            }
+        }
+
+        Rectangle {
+            id: clockRect
+            width: parent.width * mainObject.oneSecondPart
+            height: parent.height * mainObject.thirtyPercent
+            radius: mainObject.borderRadius
+            border.color: mainObject.borderColor
+            border.width: mainObject.borderWidth
+            anchors.right: parent.right
+
+            Label {
+                id: timeLbl
+                text: new Date().toLocaleTimeString(Qt.locale, Locale.ShortFormat)
+                anchors.fill: parent
+                font.family: mainObject.fontFamily
+                font.pointSize: mainObject.clockPointSize
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
         }
     }
