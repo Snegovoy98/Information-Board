@@ -1,11 +1,19 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>resources/background_images/Background.jpg</file>
         <file>resources/slider_images/Phoenix.jpg</file>
         <file>resources/buttons_img/arrow_left.png</file>
         <file>resources/buttons_img/arrow_right.png</file>
         <file>resources/control_buttons/add_btn.png</file>
         <file>resources/control_buttons/rm_btn.png</file>
+        <file>qml/common/Clock.qml</file>
+        <file>resources/clock_images/clock.png</file>
+        <file>resources/clock_images/hour.png</file>
+        <file>resources/clock_images/minute.png</file>
+        <file>resources/clock_images/quit.png</file>
+        <file>resources/clock_images/second.png</file>
+        <file>resources/clock_images/center.png</file>
+        <file>resources/control_buttons/add_video_btn.png</file>
+        <file>resources/background_images/image.jpg</file>
     </qresource>
 </RCC>
