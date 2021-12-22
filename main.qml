@@ -275,8 +275,59 @@ ApplicationWindow {
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.vetricalCenter
+
                 }
             }
+        }
+    }
+
+    Rectangle {
+        id: imgRect
+        width: parent.width * mainObject.fourtyPercent
+        height: parent.height * mainObject.oneSecondPart
+        anchors.left: mainSliderRect.right
+
+        Image {
+            anchors.fill: parent
+            source: "resources/background_images/image.jpg"
+        }
+    }
+
+    Rectangle {
+        id: clockRect
+        width: parent.width * mainObject.thirtyPercent
+        height: parent.height * mainObject.fiftyPercent
+        radius: mainObject.borderRadius
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        anchors.right: parent.right
+
+        ListView {
+            id: clockView
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            cacheBuffer: 2000
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.ApplyRange
+
+            delegate: Clock {city: cityName; shift: timeShift}
+            model: ListModel {
+                ListElement {cityName: "Kiev"; timeShift: 2}
+            }
+        }
+    }
+
+    Rectangle {
+        id: videoRect
+        width: parent.width * mainObject.seventyPercent
+        height: parent.height * mainObject.oneSecondPart
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        radius: mainObject.borderRadius
+
+        anchors {
+            left: parent.left;
+            bottom: parent.bottom
         }
 
         FileDialog {
@@ -300,6 +351,7 @@ ApplicationWindow {
 
         Rectangle {
             id: wheaterTitleRect
+
             width: parent.width
             height: parent.height * mainObject.tenPercent
             border.color: mainObject.borderColor
