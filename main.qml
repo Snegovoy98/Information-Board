@@ -228,6 +228,7 @@ ApplicationWindow {
             highlightRangeMode: ListView.ApplyRange
 
             delegate: Clock {city: cityName; shift: timeShift}
+
             model: ListModel {
                 ListElement {cityName: "Kiev"; timeShift: 2}
             }
@@ -250,7 +251,7 @@ ApplicationWindow {
         Rectangle {
             id: settingsRect
             width: parent.width
-            height: parent.height * mainObject.tenPercent
+            height:   parent.height * mainObject.tenPercent
             border.color: mainObject.borderColor
             border.width: mainObject.borderWidth
 
@@ -259,6 +260,11 @@ ApplicationWindow {
                 source: "resources/control_buttons/add_video_btn.png"
                 width: mainObject.controlButtonsSize
                 height: mainObject.controlButtonsSize
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: videoDialog.open()
+                }
             }
 
             Label {
@@ -266,8 +272,67 @@ ApplicationWindow {
                 text: "Название видео"
                 font.family: mainObject.fontFamily
                 font.pointSize: mainObject.fontPointSize
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.vetricalCenter
+
+                }
             }
+        }
+    }
+
+    Rectangle {
+        id: imgRect
+        width: parent.width * mainObject.fourtyPercent
+        height: parent.height * mainObject.oneSecondPart
+        anchors.left: mainSliderRect.right
+
+        Image {
+            anchors.fill: parent
+            source: "resources/background_images/image.jpg"
+        }
+    }
+
+    Rectangle {
+        id: clockRect
+        width: parent.width * mainObject.thirtyPercent
+        height: parent.height * mainObject.fiftyPercent
+        radius: mainObject.borderRadius
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        anchors.right: parent.right
+
+        ListView {
+            id: clockView
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            cacheBuffer: 2000
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.ApplyRange
+
+            delegate: Clock {city: cityName; shift: timeShift}
+            model: ListModel {
+                ListElement {cityName: "Kiev"; timeShift: 2}
+            }
+        }
+    }
+
+    Rectangle {
+        id: videoRect
+        width: parent.width * mainObject.seventyPercent
+        height: parent.height * mainObject.oneSecondPart
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        radius: mainObject.borderRadius
+
+        anchors {
+            left: parent.left;
+            bottom: parent.bottom
+        }
+
+        FileDialog {
+            id: videoDialog
+            nameFilters: ["Video filter (*.mp4)"]
         }
     }
 
@@ -286,6 +351,7 @@ ApplicationWindow {
 
         Rectangle {
             id: wheaterTitleRect
+
             width: parent.width
             height: parent.height * mainObject.tenPercent
             border.color: mainObject.borderColor

@@ -43,7 +43,8 @@ Item {
         anchors.centerIn: parent
         width: 200; height: 240
 
-        Image {id: background; source: "../../resources/clock_images/clock.png"; visible: clock.night == false}
+        Image {id: background; source: "../../resources/clock_images/clock.png"; visible: true; anchors.horizontalCenter: parent.horizontalCenter}
+
         Image {
             x: 92.5; y: 27
             source: "../../resources/clock_images/hour.png"
