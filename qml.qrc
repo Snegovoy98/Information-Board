@@ -15,5 +15,7 @@
         <file>resources/clock_images/center.png</file>
         <file>resources/control_buttons/add_video_btn.png</file>
         <file>resources/background_images/image.jpg</file>
+        <file>resources/buttons_img/close_btn.png</file>
+        <file>resources/buttons_img/open_btn.png</file>
     </qresource>
 </RCC>

@@ -11,11 +11,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include_directories("./include")
+
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
+find_package(Qt6 COMPONENTS Network REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
+        clientdatasender.cpp
         qml.qrc
 )
 
@@ -46,6 +50,7 @@ target_compile_definitions(Information-Board
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(Information-Board
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+target_link_libraries(Information-Board PRIVATE Qt6::Network)
 
 set_target_properties(Information-Board PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

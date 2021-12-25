@@ -12,6 +12,7 @@ ApplicationWindow {
     QtObject {
         id: mainObject
         readonly property string fontFamily: "Decorative"
+        readonly property int fivePoints: 5
         readonly property int fontPointSize: 14
         readonly property int clockPointSize: 20
         readonly property double oneSecondPart: 1/2
@@ -33,6 +34,13 @@ ApplicationWindow {
         readonly property int oneImg: 1
         readonly property int firstIndex: 0
         readonly property int lastIndex: imagesLV.count - 1
+    }
+
+    Drawer {
+        id: topDrawer
+        edge: Qt.TopEdge
+        width: parent.width
+        height: parent.height * mainObject.tenPercent
     }
 
     Rectangle {
@@ -205,8 +213,56 @@ ApplicationWindow {
         anchors.left: mainSliderRect.right
 
         Image {
+            id: backgroundImg
             anchors.fill: parent
             source: "resources/background_images/image.jpg"
+
+            Loader {
+                id: openDrawerBtnsLoader
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+                sourceComponent: openBtnComponent
+            }
+        }
+    }
+    Component {
+        id: openBtnComponent
+
+        Image {
+            id: openDrawerBtn
+            width: mainObject.controlButtonsSize
+            height: mainObject.controlButtonsSize
+            source: "resources/buttons_img/open_btn.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    topDrawer.open();
+                    openDrawerBtnsLoader.sourceComponent = closeBtnComponent;
+                    openDrawerBtnsLoader.y += topDrawer.height - mainObject.fivePoints
+                }
+            }
+        }
+    }
+
+    Component {
+        id: closeBtnComponent
+
+        Image {
+            id: closeDrawerBtn
+            width: mainObject.controlButtonsSize
+            height: mainObject.controlButtonsSize
+            source: "resources/buttons_img/close_btn.png"
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    topDrawer.close();
+                    openDrawerBtnsLoader.sourceComponent = openBtnComponent;
+                    openDrawerBtnsLoader.y = topDrawer.position
+                }
+            }
         }
     }
 
