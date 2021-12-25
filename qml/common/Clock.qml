@@ -1,17 +1,21 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 
 Item {
     id: clock
+
     width: {
-        if(ListView.view && ListView.view.width >= 200)
-            return ListView.view.width / Math.floor(ListView.view.width / 200.0);
+
+        if(ListView.view && ListView.view.width > 200)
+            return ListView.view.width / Math.floor(ListView.view.width / 500.0);
+
          else
-            return 200;
+            return 190;
     }
 
     height: {
-        if(ListView.view && ListView.view.height >= 240)
-            return ListView.view.height;
+        if(ListView.view && ListView.view.height > 240)
+            return ListView.view.height / Math.floor(ListView.view.height / 500.0);
         else
             return 240;
     }
