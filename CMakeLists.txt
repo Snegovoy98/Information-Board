@@ -18,6 +18,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 find_package(Qt6 COMPONENTS Network REQUIRED)
 
 set(PROJECT_SOURCES
+        clientdatasender.h
         main.cpp
         clientdatasender.cpp
         qml.qrc

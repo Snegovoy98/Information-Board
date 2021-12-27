@@ -13,6 +13,7 @@ ApplicationWindow {
         id: mainObject
         readonly property string fontFamily: "Decorative"
         readonly property int fivePoints: 5
+        readonly property int menuElemsPointSize: 7
         readonly property int fontPointSize: 14
         readonly property int clockPointSize: 20
         readonly property double oneSecondPart: 1/2
@@ -41,6 +42,37 @@ ApplicationWindow {
         edge: Qt.TopEdge
         width: parent.width
         height: parent.height * mainObject.tenPercent
+
+        Image {
+            id: settingsLogo
+            width: mainObject.controlButtonsSize
+            height: mainObject.controlButtonsSize
+            source: "resources/buttons_img/settings.png"
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+                rightMargin: 15
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked:  {
+                    settingsPage.visible = true
+                }
+            }
+        }
+
+        Label {
+            id: settingsTitle
+            text: "Настройки"
+            font.family: mainObject.fontFamily
+            font.pointSize: mainObject.menuElemsPointSize
+            anchors {
+                top: settingsLogo.bottom
+                right: parent.right
+                rightMargin: 5
+            }
+        }
     }
 
     Rectangle {
@@ -217,50 +249,16 @@ ApplicationWindow {
             anchors.fill: parent
             source: "resources/background_images/image.jpg"
 
-            Loader {
-                id: openDrawerBtnsLoader
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                }
-                sourceComponent: openBtnComponent
-            }
-        }
-    }
-    Component {
-        id: openBtnComponent
+            Image {
+                id: openDrawerBtn
+                width: mainObject.controlButtonsSize
+                height: mainObject.controlButtonsSize
+                source: "resources/buttons_img/open_btn.png"
+                anchors.horizontalCenter: parent.horizontalCenter
 
-        Image {
-            id: openDrawerBtn
-            width: mainObject.controlButtonsSize
-            height: mainObject.controlButtonsSize
-            source: "resources/buttons_img/open_btn.png"
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    topDrawer.open();
-                    openDrawerBtnsLoader.sourceComponent = closeBtnComponent;
-                    openDrawerBtnsLoader.y += topDrawer.height - mainObject.fivePoints
-                }
-            }
-        }
-    }
-
-    Component {
-        id: closeBtnComponent
-
-        Image {
-            id: closeDrawerBtn
-            width: mainObject.controlButtonsSize
-            height: mainObject.controlButtonsSize
-            source: "resources/buttons_img/close_btn.png"
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    topDrawer.close();
-                    openDrawerBtnsLoader.sourceComponent = openBtnComponent;
-                    openDrawerBtnsLoader.y = topDrawer.position
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: topDrawer.open()
                 }
             }
         }
@@ -370,4 +368,6 @@ ApplicationWindow {
             }
         }
     }
+
+    SettingsPage {id: settingsPage; width: parent.width; height: parent.height; visible: false}
 }
