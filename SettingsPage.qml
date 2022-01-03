@@ -18,7 +18,11 @@ Page {
         readonly property double twentyPercent: 0.2
         readonly property double thirtyPercent: 0.3
         readonly property double sixtyPercent: 0.6
+        readonly property double oneSecondPart: 1/2
     }
+
+    property string address: networkAddress.text
+    property int port: parseInt(networkPort.text)
 
     Rectangle {
         id: headerRect
@@ -91,32 +95,37 @@ Page {
 
                 RowLayout {
                     width: parent.width
-                    height: parent.height
+                    height: parent.height * settingsObject.oneSecondPart
+                    Layout.alignment: Qt.AlignHCenter
 
                     Label {
+                        id: networkAddress
                         text: "Адрес подключения"
                         font.family: settingsObject.fontFamily
                         font.pointSize: settingsObject.fontPointSize
-                        horizontalAlignment: Text.AlignHCenter
+                        Layout.alignment: Qt.AlignLeft
                     }
 
                     Label {
+                        id: networkPort
                         text: "Порт подключения"
                         font.family: settingsObject.fontFamily
                         font.pointSize: settingsObject.fontPointSize
-                        horizontalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignRight
+
                     }
                 }
 
                 RowLayout {
                     width: parent.width
-                    height: parent.height
+                    height: parent.height * settingsObject.oneSecondPart
 
                     TextField {
                         text: "127.0.0.1"
                         font.family: settingsObject.fontFamily
                         font.pointSize: settingsObject.fontPointSize
                         selectByMouse: true
+                        horizontalAlignment: TextInput.AlignHCenter
                     }
 
                     TextField {
@@ -124,6 +133,7 @@ Page {
                         font.family: settingsObject.fontFamily
                         font.pointSize: settingsObject.fontPointSize
                         selectByMouse: true
+                        horizontalAlignment: TextInput.AlignHCenter
                     }
                 }
             }

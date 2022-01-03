@@ -27,9 +27,10 @@ ApplicationWindow {
         readonly property double tenPercent: 0.1
         readonly property double fifteenPercent: 0.15
         readonly property double thirtyPercent: 0.3
+        readonly property double thirtyFivePercent: 0.35
         readonly property double fourtyPercent: 0.4
         readonly property double fiftyPercent: 0.5
-        readonly property double seventyPercent: 0.7
+        readonly property double sixtyFivePercent: 0.65
         readonly property double eightyPercent: 0.8
         readonly property double ninetyPercent: 0.9
         readonly property int oneImg: 1
@@ -76,10 +77,96 @@ ApplicationWindow {
     }
 
     Rectangle {
+        id: wheatherRect
+        width: parent.width * mainObject.thirtyFivePercent
+        height: parent.height * mainObject.oneSecondPart
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        radius: mainObject.borderRadius
+
+        anchors {
+            left: parent.left
+            top: parent.top
+        }
+
+        Rectangle {
+            id: wheaterTitleRect
+            width: parent.width
+            height: parent.height * mainObject.tenPercent
+            border.color: mainObject.borderColor
+            border.width: mainObject.borderWidth
+
+            Label {
+                id: wheatherTitle
+                text: "Погода в Киеве"
+                font.family: mainObject.fontFamily
+                font.pointSize: mainObject.fontPointSize
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+
+    Rectangle {
+        id: imgRect
+        width: parent.width * mainObject.fourtyPercent
+        height: parent.height * mainObject.oneSecondPart
+        anchors.left: mainSliderRect.right
+
+        Image {
+            id: backgroundImg
+            anchors.fill: parent
+            source: "resources/background_images/image.jpg"
+
+            Image {
+                id: openDrawerBtn
+                width: mainObject.controlButtonsSize
+                height: mainObject.controlButtonsSize
+                source: "resources/buttons_img/open_btn.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: topDrawer.open()
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: clockRect
+        width: parent.width * mainObject.thirtyPercent
+        height: parent.height * mainObject.fiftyPercent
+        radius: mainObject.borderRadius
+        border.color: mainObject.borderColor
+        border.width: mainObject.borderWidth
+        anchors.right: parent.right
+
+        ListView {
+            id: clockView
+            anchors.fill: parent
+            orientation: ListView.Horizontal
+            cacheBuffer: 2000
+            snapMode: ListView.SnapOneItem
+            highlightRangeMode: ListView.ApplyRange
+
+            delegate: Clock {city: cityName; shift: timeShift}
+
+            model: ListModel {
+                ListElement {cityName: "Kiev"; timeShift: 2}
+            }
+        }
+    }
+
+    Rectangle {
         id: mainSliderRect
-        width: parent.width * mainObject.oneThirdPart
+        width: parent.width * mainObject.thirtyFivePercent
         height: parent.height * mainObject.oneSecondPart
         radius: mainObject.borderRadius
+
+        anchors {
+            left: parent.left
+            bottom: parent.bottom
+        }
 
         Rectangle {
             id: controlButtonsRect
@@ -111,6 +198,7 @@ ApplicationWindow {
                     }
                 }
             }
+
             Rectangle {
                 id: rmBtnRect
                 width: parent.width * mainObject.fifteenPercent
@@ -239,66 +327,15 @@ ApplicationWindow {
     }
 
     Rectangle {
-        id: imgRect
-        width: parent.width * mainObject.fourtyPercent
-        height: parent.height * mainObject.oneSecondPart
-        anchors.left: mainSliderRect.right
-
-        Image {
-            id: backgroundImg
-            anchors.fill: parent
-            source: "resources/background_images/image.jpg"
-
-            Image {
-                id: openDrawerBtn
-                width: mainObject.controlButtonsSize
-                height: mainObject.controlButtonsSize
-                source: "resources/buttons_img/open_btn.png"
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: topDrawer.open()
-                }
-            }
-        }
-    }
-
-    Rectangle {
-        id: clockRect
-        width: parent.width * mainObject.thirtyPercent
-        height: parent.height * mainObject.fiftyPercent
-        radius: mainObject.borderRadius
-        border.color: mainObject.borderColor
-        border.width: mainObject.borderWidth
-        anchors.right: parent.right
-
-        ListView {
-            id: clockView
-            anchors.fill: parent
-            orientation: ListView.Horizontal
-            cacheBuffer: 2000
-            snapMode: ListView.SnapOneItem
-            highlightRangeMode: ListView.ApplyRange
-
-            delegate: Clock {city: cityName; shift: timeShift}
-
-            model: ListModel {
-                ListElement {cityName: "Kiev"; timeShift: 2}
-            }
-        }
-    }
-
-    Rectangle {
         id: videoRect
-        width: parent.width * mainObject.seventyPercent
+        width: parent.width * mainObject.sixtyFivePercent
         height: parent.height * mainObject.oneSecondPart
         border.color: mainObject.borderColor
         border.width: mainObject.borderWidth
         radius: mainObject.borderRadius
 
         anchors {
-            left: parent.left;
+            right: parent.right;
             bottom: parent.bottom
         }
 
@@ -336,36 +373,6 @@ ApplicationWindow {
         FileDialog {
             id: videoDialog
             nameFilters: ["Video filter (*.mp4)"]
-        }
-    }
-
-    Rectangle {
-        id: wheatherRect
-        width: parent.width * mainObject.thirtyPercent
-        height: parent.height * mainObject.oneSecondPart
-        border.color: mainObject.borderColor
-        border.width: mainObject.borderWidth
-        radius: mainObject.borderRadius
-
-        anchors {
-            right: parent.right
-            bottom: parent.bottom
-        }
-
-        Rectangle {
-            id: wheaterTitleRect
-            width: parent.width
-            height: parent.height * mainObject.tenPercent
-            border.color: mainObject.borderColor
-            border.width: mainObject.borderWidth
-
-            Label {
-                id: wheatherTitle
-                text: "Погода в Киеве"
-                font.family: mainObject.fontFamily
-                font.pointSize: mainObject.fontPointSize
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
         }
     }
 
