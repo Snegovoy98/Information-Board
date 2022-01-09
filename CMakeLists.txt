@@ -19,8 +19,10 @@ find_package(Qt6 COMPONENTS Network REQUIRED)
 
 set(PROJECT_SOURCES
         clientdatasender.h
+        weatherparser.h
         main.cpp
         clientdatasender.cpp
+        weatherparser.cpp
         qml.qrc
 )
 
