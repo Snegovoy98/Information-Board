@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include "weatherparser.h"
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +11,12 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
+    std::unique_ptr<WeatherParser> parser = std::make_unique<WeatherParser>();
+
     QQmlApplicationEngine engine;
+    qmlRegisterType<WeatherParser>("Weather", 1, 0, "Weather");
+
+    engine.rootContext()->setContextProperty("Weather", parser.get());
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

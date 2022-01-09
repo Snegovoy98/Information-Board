@@ -10,19 +10,26 @@ Page {
     QtObject {
         id: settingsObject
         readonly property string fontFamily: "Decorative"
-        readonly property int fontPointSize: 7
+        readonly property int fontPointSize: 10
         readonly property int fontMenuPointSize: 10
         readonly property int buttonsSize: 25
         readonly property int menuButtonsSize: 40
+        readonly property int controlsButtonsSize: 40
         readonly property double tenPercent: 0.1
         readonly property double twentyPercent: 0.2
         readonly property double thirtyPercent: 0.3
+        readonly property double fiftyPercent: 0.5
         readonly property double sixtyPercent: 0.6
         readonly property double oneSecondPart: 1/2
+        readonly property int topMargin: 5
+        readonly property string borderColor: "gray"
+        readonly property int borderWidth: 1
     }
 
     property string address: networkAddress.text
     property int port: parseInt(networkPort.text)
+    property bool manualSelected: true
+    property bool autoSelected: false
 
     Rectangle {
         id: headerRect
@@ -68,6 +75,7 @@ Page {
                 text: "Главная"
                 font.family: settingsObject.fontFamily
                 font.pointSize: settingsObject.fontMenuPointSize
+
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.verticalCenter
@@ -83,12 +91,13 @@ Page {
 
     Rectangle {
         id: networkSettingsRect
-        width: parent.width * settingsObject.sixtyPercent
+        width: parent.width
         height: parent.height * settingsObject.twentyPercent
         anchors.top: headerRect.bottom
 
         GroupBox {
             title: qsTr("Сетевые настройки")
+            anchors.horizontalCenter: parent.horizontalCenter
 
             ColumnLayout {
                 anchors.fill: parent
@@ -112,7 +121,6 @@ Page {
                         font.family: settingsObject.fontFamily
                         font.pointSize: settingsObject.fontPointSize
                         Layout.alignment: Qt.AlignRight
-
                     }
                 }
 
@@ -135,6 +143,110 @@ Page {
                         selectByMouse: true
                         horizontalAlignment: TextInput.AlignHCenter
                     }
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: sliderSettingsRect
+        width: parent.width
+        height: parent.height * settingsObject.twentyPercent
+
+        anchors {
+            top: networkSettingsRect.bottom
+            topMargin: settingsObject.topMargin
+        }
+
+        Rectangle {
+            id: sliderTitleRect
+            width: parent.width
+            height: parent.height * settingsObject.tenPercent
+
+            Label {
+                id: sliderTitleLbl
+                text: "Настройки слайдера"
+                font.family: settingsObject.fontFamily
+                font.pointSize: settingsObject.fontPointSize
+
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        Rectangle {
+            id: controlImagesRect
+            width: parent.width * settingsObject.thirtyPercent
+            height: parent.height * settingsObject.fiftyPercent
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
+
+            RowLayout {
+                anchors.fill: parent
+
+                Image {
+                    id: uploadBtn
+                    source: "resources/control_buttons/add_image.png"
+                    width: settingsObject.controlsButtonsSize
+                    height: settingsObject.controlsButtonsSize
+                    Layout.alignment: Qt.AlignCenter
+                }
+
+                Image {
+                    id: removeBtn
+                    source: "resources/control_buttons/remove_image.png"
+                    width: settingsObject.controlsButtonsSize
+                    height: settingsObject.controlsButtonsSize
+                    Layout.alignment: Qt.AlignCenter
+                }
+            }
+        }
+
+        Rectangle {
+            id: controlModeRect
+            width: settingsObject.thirtyPercent
+            height: settingsObject.sixtyPercent
+
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: sliderTitleRect.bottom
+                verticalCenter: parent.verticalCenter
+                left: controlImagesRect.right
+                leftMargin: 5
+            }
+
+            ButtonGroup {
+                buttons: column.children
+            }
+
+            ColumnLayout {
+                id: column
+                anchors.fill: parent
+
+                RadioButton {
+                    id: manualSlideRB
+                    text: "Вручную"
+                    checked: true
+                    font.family: settingsObject.fontFamily
+                    font.pointSize: settingsObject.fontPointSize
+                    Layout.alignment: Qt.AlignLeft
+
+                    onClicked: if(manualSlideRB.checked) manualSelected = true
+                }
+
+                RadioButton {
+                    id: autoSlideRB
+                    text: "Авто переключение"
+                    font.family: settingsObject.fontFamily
+                    font.pointSize: settingsObject.sevenPointsSize
+                    Layout.alignment: Qt.AlignLeft
+
+                    onClicked: if(autoSlideRB.checked)autoSelected = true
                 }
             }
         }
