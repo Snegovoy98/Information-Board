@@ -1,4 +1,3 @@
-
 import QtQuick
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
@@ -46,7 +45,7 @@ ApplicationWindow {
     }
 
     function getRequest() {
-        Weather.sendRequest("******************************************")
+        Weather.sendRequest("*********************************************")
     }
 
     function resultHandler(result) {
