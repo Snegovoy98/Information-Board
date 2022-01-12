@@ -246,7 +246,6 @@ Page {
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
                     Layout.alignment: Qt.AlignLeft
-                   onClicked: console.log(manualSlideRB.checked)
                 }
 
                 RadioButton {
@@ -259,6 +258,73 @@ Page {
                 }
             }
         }
+    }
+
+    Rectangle {
+        id: videoSettingsRect
+        width: parent.width
+        height: parent.height & settingsObject.twentyPercent
+
+        anchors {
+            top: sliderSettingsRect.bottom
+            topMargin: settingsObject.topMargin
+            bottom: buttonSaveRect.top
+            bottomMargin: settingsObject.topMargin
+        }
+
+        Rectangle {
+            id: videoSettingsTitleRect
+            width: parent.width
+            height: parent.height * settingsObject.tenPercent
+
+            Label {
+                id: videoSettingsTitleLbl
+                text: "Настройки видеоплеера"
+                font.family: settingsObject.fontFamily
+                font.pointSize: settingsObject.fontPointSize
+
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+        }
+
+        Rectangle {
+            id: videoSettingsContentRect
+            width: parent.width
+            height: parent.height * settingsObject.tenPercent
+            anchors.top: videoSettingsTitleRect.bottom
+
+            ColumnLayout {
+                anchors.fill: parent
+
+                Image {
+                    id: addVideoRect
+                    source: "resources/control_buttons/add_video.png"
+                    width: settingsObject.controlsButtonsSize
+                    height: settingsObject.controlsButtonsSize
+                    Layout.alignment: Qt.AlignCenter
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: videoFileDialog.open()
+                    }
+                }
+
+                Label {
+                    text: "Добавить видео"
+                    font.family: settingsObject.fontFamily
+                    font.pointSize: settingsObject.fontPointSize
+                    Layout.alignment: Qt.AlignCenter
+                }
+            }
+        }
+    }
+
+    FileDialog {
+        id: videoFileDialog
+        nameFilters: ["Video files: *.mp4 *.avi"]
     }
 
     Rectangle {

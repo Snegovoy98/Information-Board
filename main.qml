@@ -45,7 +45,7 @@ ApplicationWindow {
     }
 
     function getRequest() {
-        Weather.sendRequest("******************************************")
+        Weather.sendRequest("*********************************************")
     }
 
     function resultHandler(result) {

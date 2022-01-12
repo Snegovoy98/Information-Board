@@ -26,5 +26,6 @@
         <file>resources/background_images/sunset.jpg</file>
         <file>resources/control_buttons/add_image.png</file>
         <file>resources/control_buttons/remove_image.png</file>
+        <file>resources/control_buttons/add_video.png</file>
     </qresource>
 </RCC>
