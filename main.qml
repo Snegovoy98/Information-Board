@@ -1,3 +1,4 @@
+
 import QtQuick
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
@@ -533,4 +534,3 @@ ApplicationWindow {
 
     SettingsPage {id: settingsPage; width: parent.width; height: parent.height; visible: false}
 }
-
