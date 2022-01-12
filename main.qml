@@ -533,4 +533,3 @@ ApplicationWindow {
 
     SettingsPage {id: settingsPage; width: parent.width; height: parent.height; visible: false}
 }
-
