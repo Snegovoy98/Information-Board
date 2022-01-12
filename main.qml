@@ -45,7 +45,7 @@ ApplicationWindow {
     }
 
     function getRequest() {
-        Weather.sendRequest("*****************************")
+        Weather.sendRequest("******************************************")
     }
 
     function resultHandler(result) {
@@ -443,7 +443,7 @@ ApplicationWindow {
                 width: mainObject.sliderButtonsSize
                 height: mainObject.sliderButtonsSize
                 visible: {
-                    if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex <= mainObject.firstIndex) {
+                    if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex <= mainObject.firstIndex || settingsPage.autoSlide) {
                         false
                     } else if(imagesLV.count > mainObject.oneImg && imagesLV.currentIndex > mainObject.firstIndex) {
                         true
@@ -469,7 +469,7 @@ ApplicationWindow {
                 height: mainObject.sliderButtonsSize
 
                 visible: {
-                    if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex >= mainObject.lastIndex) {
+                    if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex >= mainObject.lastIndex || settingsPage.autoSlide) {
                         false
                     } else if(imagesLV.count > mainObject.oneImg && imagesLV.currentIndex < mainObject.lastIndex) {
                         true
@@ -487,6 +487,14 @@ ApplicationWindow {
                     onClicked: imagesLV.incrementCurrentIndex()
                 }
             }
+        }
+
+        Timer {
+            id: autoSlide
+            interval: 5000
+            running: settingsPage.autoSlide? true : false
+            repeat: true
+            onTriggered: imagesLV.count > mainObject.oneImg && imagesLV.currentIndex < mainObject.lastIndex? imagesLV.incrementCurrentIndex() : imagesLV.decrementCurrentIndex()
         }
     }
 

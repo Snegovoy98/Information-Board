@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import QtQuick.Dialogs
 
 Page {
     id: settingsPage
@@ -28,8 +29,8 @@ Page {
 
     property string address: networkAddress.text
     property int port: parseInt(networkPort.text)
-    property bool manualSelected: true
-    property bool autoSelected: false
+    property bool  manualSlide: true
+    property bool  autoSlide: false
 
     Rectangle {
         id: headerRect
@@ -195,6 +196,11 @@ Page {
                     width: settingsObject.controlsButtonsSize
                     height: settingsObject.controlsButtonsSize
                     Layout.alignment: Qt.AlignCenter
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: sliderImagesDialog.open()
+                    }
                 }
 
                 Image {
@@ -205,6 +211,11 @@ Page {
                     Layout.alignment: Qt.AlignCenter
                 }
             }
+        }
+
+        FileDialog {
+            id: sliderImagesDialog
+            nameFilters: ["Images files: *.jpg *.jpeg *.png"]
         }
 
         Rectangle {
@@ -235,8 +246,7 @@ Page {
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
                     Layout.alignment: Qt.AlignLeft
-
-                    onClicked: if(manualSlideRB.checked) manualSelected = true
+                   onClicked: console.log(manualSlideRB.checked)
                 }
 
                 RadioButton {
@@ -245,8 +255,35 @@ Page {
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.sevenPointsSize
                     Layout.alignment: Qt.AlignLeft
+                    checked: false
+                }
+            }
+        }
+    }
 
-                    onClicked: if(autoSlideRB.checked)autoSelected = true
+    Rectangle {
+        id: buttonSaveRect
+        width: parent.width
+        height: parent.height * settingsObject.tenPercent
+        anchors.bottom: parent.bottom
+
+        Button {
+            id: saveBtn
+            text: "Сохранить"
+            font.family: settingsObject.fontFamily
+            font.pointSize: settingsObject.fontPointSize
+            highlighted: true
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
+            onClicked: {
+                if(manualSlideRB.checked) {
+                    manualSlide = true
+                    autoSlide = false
+                } else if(autoSlideRB.checked) {
+                    autoSlide = true
+                    manualSlide = false
                 }
             }
         }
