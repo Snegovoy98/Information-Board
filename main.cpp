@@ -3,6 +3,8 @@
 #include "weatherparser.h"
 #include <QQmlContext>
 
+
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -14,7 +16,6 @@ int main(int argc, char *argv[])
     std::unique_ptr<WeatherParser> parser = std::make_unique<WeatherParser>();
 
     QQmlApplicationEngine engine;
-    qmlRegisterType<WeatherParser>("Weather", 1, 0, "Weather");
 
     engine.rootContext()->setContextProperty("Weather", parser.get());
     const QUrl url(QStringLiteral("qrc:/main.qml"));

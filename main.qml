@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import QtQuick.Layouts 1.15
+import QtMultimedia
 import "qml/common"
 
 ApplicationWindow {
@@ -35,6 +36,7 @@ ApplicationWindow {
         readonly property double thirtyFivePercent: 0.35
         readonly property double fourtyPercent: 0.4
         readonly property double fiftyPercent: 0.5
+        readonly property double fiftyFivePercent: 0.55
         readonly property double sixtyFivePercent: 0.65
         readonly property double eightyPercent: 0.8
         readonly property double ninetyPercent: 0.9
@@ -45,7 +47,7 @@ ApplicationWindow {
     }
 
     function getRequest() {
-        Weather.sendRequest("*********************************************")
+        Weather.sendRequest("https://api.weatherapi.com/v1/current.json?key=25d45d652d4e42eeb5a63758220301&q=Киев&aqi=yes&lang=ru")
     }
 
     function resultHandler(result) {
@@ -60,43 +62,11 @@ ApplicationWindow {
         cloudValue.text    = jsonResult["current"]["cloud"] + " октант"
     }
 
-    Drawer {
+
+    TopDrawer {
         id: topDrawer
-        edge: Qt.TopEdge
-        width: parent.width
-        height: parent.height * mainObject.tenPercent
-
-        Image {
-            id: settingsLogo
-            width: mainObject.controlButtonsSize
-            height: mainObject.controlButtonsSize
-            source: "resources/buttons_img/settings.png"
-            anchors {
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-                rightMargin: 15
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked:  {
-                    settingsPage.visible = true
-                }
-            }
-        }
-
-        Label {
-            id: settingsTitle
-            text: "Настройки"
-            font.family: mainObject.fontFamily
-            font.pointSize: mainObject.menuElemsPointSize
-            anchors {
-                top: settingsLogo.bottom
-                right: parent.right
-                rightMargin: 5
-            }
-        }
     }
+
 
     Rectangle {
         id: weatherRect
@@ -512,7 +482,7 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: settingsRect
+            id: titleRect
             width: parent.width
             height:   parent.height * mainObject.tenPercent
             border.color: mainObject.borderColor
@@ -527,6 +497,29 @@ ApplicationWindow {
                     horizontalCenter: parent.horizontalCenter
                     verticalCenter: parent.vetricalCenter
                 }
+            }
+        }
+
+        Rectangle {
+            id: videoContentRect
+            width: parent.width * mainObject.ninetyPercent
+            height: parent.height * mainObject.fiftyFivePercent
+            anchors.top: titleRect.bottom
+
+            MediaPlayer {
+                id: mediaPlayer
+                audioOutput: AudioOutput{}
+                videoOutput: videoOutput
+            }
+
+            VideoOutput {
+                id: videoOutput
+                anchors.fill: parent
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onPressed: mediaPlayer.play()
             }
         }
     }

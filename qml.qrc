@@ -16,7 +16,6 @@
         <file>resources/buttons_img/open_btn.png</file>
         <file>resources/buttons_img/settings.png</file>
         <file>SettingsPage.qml</file>
-        <file>resources/buttons_img/menu_btn.png</file>
         <file>resources/buttons_img/main_page.png</file>
         <file>resources/weather_icons/cloud.png</file>
         <file>resources/weather_icons/humidity.png</file>
@@ -27,5 +26,6 @@
         <file>resources/control_buttons/add_image.png</file>
         <file>resources/control_buttons/remove_image.png</file>
         <file>resources/control_buttons/add_video.png</file>
+        <file>qml/common/TopDrawer.qml</file>
     </qresource>
 </RCC>

@@ -11,17 +11,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include_directories("./include")
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 find_package(Qt6 COMPONENTS Network REQUIRED)
 
 set(PROJECT_SOURCES
-        clientdatasender.h
-        weatherparser.h
         main.cpp
-        clientdatasender.cpp
         weatherparser.cpp
         qml.qrc
 )
