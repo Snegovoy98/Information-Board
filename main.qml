@@ -62,11 +62,13 @@ ApplicationWindow {
         cloudValue.text    = jsonResult["current"]["cloud"] + " октант"
     }
 
+    function setImagePath(path) {
+        imagesModel.append({"path": path})
+    }
 
     TopDrawer {
         id: topDrawer
     }
-
 
     Rectangle {
         id: weatherRect
@@ -365,13 +367,6 @@ ApplicationWindow {
 
             ListModel {
                 id: imagesModel
-
-                ListElement {
-                    path: "resources/slider_images/Phoenix.jpg"
-                }
-                ListElement {
-                    path: "resources/slider_images/Phoenix.jpg"
-                }
             }
 
             ListView {
@@ -464,7 +459,7 @@ ApplicationWindow {
             interval: 5000
             running: settingsPage.autoSlide? true : false
             repeat: true
-            onTriggered: imagesLV.count > mainObject.oneImg && imagesLV.currentIndex < mainObject.lastIndex? imagesLV.incrementCurrentIndex() : imagesLV.decrementCurrentIndex()
+            onTriggered: imagesLV.count > mainObject.oneImg && imagesLV.currentIndex >= 0 && imagesLV.currentIndex < mainObject.lastIndex? imagesLV.incrementCurrentIndex() : imagesLV.currentIndex = 0
         }
     }
 
@@ -504,7 +499,10 @@ ApplicationWindow {
             id: videoContentRect
             width: parent.width * mainObject.ninetyPercent
             height: parent.height * mainObject.fiftyFivePercent
-            anchors.top: titleRect.bottom
+            anchors {
+                top: titleRect.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
 
             MediaPlayer {
                 id: mediaPlayer

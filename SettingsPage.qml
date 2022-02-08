@@ -17,6 +17,7 @@ Page {
         readonly property int buttonsSize: 25
         readonly property int menuButtonsSize: 25
         readonly property int controlsButtonsSize: 40
+        readonly property int buttonWidth: 90
         readonly property double tenPercent: 0.1
         readonly property double twentyPercent: 0.2
         readonly property double thirtyPercent: 0.3
@@ -126,6 +127,7 @@ Page {
         FileDialog {
             id: sliderImagesDialog
             nameFilters: ["Images files: *.jpg *.jpeg *.png"]
+            onAccepted: setImagePath(sliderImagesDialog.selectedFile)
         }
 
         Rectangle {
@@ -203,7 +205,7 @@ Page {
         Rectangle {
             id: videoSettingsContentRect
             width: parent.width
-            height: parent.height * settingsObject.tenPercent
+            height: parent.height * settingsObject.fiftyPercent
             anchors.top: videoSettingsTitleRect.bottom
 
             ColumnLayout {
@@ -226,7 +228,7 @@ Page {
                     text: "Добавить видео"
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
-                    Layout.alignment: Qt.AlignCenter
+                    Layout.alignment: Qt.AlignHCenter
                 }
             }
         }
@@ -246,6 +248,8 @@ Page {
         Button {
             id: saveBtn
             text: "Сохранить"
+            width: settingsObject.buttonWidth
+            height: settingsObject.controlsButtonsSize
             font.family: settingsObject.fontFamily
             font.pointSize: settingsObject.fontPointSize
             highlighted: true
