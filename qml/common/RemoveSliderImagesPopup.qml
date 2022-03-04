@@ -17,6 +17,7 @@ Popup {
         readonly property double eightyPercent: 0.8
         readonly property double ninetyFivePercent: 0.95
         readonly property int iconSize: 100
+        property var indexesArray: []
     }
 
     property var imagesModel
@@ -85,10 +86,10 @@ Popup {
                             horizontalCenter: parent.horizontalCenter
                             verticalCenter: parent.verticalCenter
                         }
+
+                        onClicked: sliderImagesPropertyObject.indexesArray.push(index)
                     }
                 }
-
-
             }
         }
 
@@ -113,6 +114,12 @@ Popup {
                 top: imagesView.bottom
                 horizontalCenter: parent.horizontalCenter
             }
-        }
 
+            onClicked: {
+                for(var index = 0; index < sliderImagesPropertyObject.indexesArray.length; ++index) {
+                   imagesModel.remove(sliderImagesPropertyObject.indexesArray[index])
+                    sliderImagesPropertyObject.indexesArray.pop(index)
+                }
+            }
+        }
 }
