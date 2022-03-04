@@ -382,6 +382,19 @@ ApplicationWindow {
                 model: imagesModel
                 snapMode: ListView.SnapOneItem
 
+
+                Label {
+                    text: "Добавьте изображение"
+                    font.family: mainObject.fontFamily
+                    font.pointSize: mainObject.menuElemsPointSize
+                    font.italic: true
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                        verticalCenter: parent.verticalCenter
+                    }
+                    visible: imagesModel.count > 0? false: true
+                }
+
                 delegate: Image {
                     id: delegateImg
                     width: sliderContentRect.width
@@ -530,3 +543,4 @@ ApplicationWindow {
 
     SettingsPage {id: settingsPage; width: parent.width; height: parent.height; visible: false}
 }
+

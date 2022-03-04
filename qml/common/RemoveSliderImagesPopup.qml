@@ -87,7 +87,14 @@ Popup {
                             verticalCenter: parent.verticalCenter
                         }
 
-                        onClicked: sliderImagesPropertyObject.indexesArray.push(index)
+                        onClicked: {
+                             if(imagesCB.checkState === Qt.Checked) {
+                                    sliderImagesPropertyObject.indexesArray.push(index)
+                             } else if(imagesCB.checkState === Qt.Unchecked) {
+                                 if(sliderImagesPropertyObject.indexesArray.indexOf(index))
+                                        sliderImagesPropertyObject.indexesArray.pop(index)
+                             }
+                        }
                     }
                 }
             }
