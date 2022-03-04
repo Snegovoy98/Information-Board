@@ -31,6 +31,7 @@ Page {
 
     property bool  manualSlide: true
     property bool  autoSlide: false
+    property var imagesModelProperty
 
 
     TopDrawer {
@@ -110,7 +111,10 @@ Page {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: sliderImagesDialog.open()
+                        onClicked: {
+                            sliderImagesDialog.open()
+                            imagesModelProperty = mainPage.modelProperty
+                        }
                     }
                 }
 
@@ -120,6 +124,14 @@ Page {
                     width: settingsObject.controlsButtonsSize
                     height: settingsObject.controlsButtonsSize
                     Layout.alignment: Qt.AlignCenter
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            sliderImagesPopup.open()
+                            sliderImagesPopup.imagesModel = imagesModelProperty
+                        }
+                    }
                 }
             }
         }
@@ -205,8 +217,11 @@ Page {
         Rectangle {
             id: videoSettingsContentRect
             width: parent.width
-            height: parent.height * settingsObject.fiftyPercent
-            anchors.top: videoSettingsTitleRect.bottom
+            height: parent.height * settingsObject.thirtyPercent
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                verticalCenter: parent.verticalCenter
+            }
 
             ColumnLayout {
                 anchors.fill: parent
@@ -267,5 +282,10 @@ Page {
                 }
             }
         }
+    }
+
+    RemoveSliderImagesPopup {
+        id: sliderImagesPopup
+        anchors.centerIn: parent
     }
 }
