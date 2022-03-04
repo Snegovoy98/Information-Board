@@ -2,14 +2,20 @@ import QtQuick
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import QtQuick.Layouts 1.15
+import QtQuick.Controls.Universal 2.15
 import QtMultimedia
 import "qml/common"
 
 ApplicationWindow {
+    id: mainPage
     width: 640
     height: 480
     visible: true
     title: qsTr("Information Board")
+
+
+    Universal.accent: Universal.Green
+    Universal.background: Universal.White
 
     QtObject {
         id: mainObject
@@ -45,6 +51,8 @@ ApplicationWindow {
         readonly property int firstIndex: 0
         readonly property int lastIndex: imagesLV.count - 1
     }
+
+    property var modelProperty: imagesModel
 
     function getRequest() {
         Weather.sendRequest("https://api.weatherapi.com/v1/current.json?key=25d45d652d4e42eeb5a63758220301&q=Киев&aqi=yes&lang=ru")
@@ -365,9 +373,7 @@ ApplicationWindow {
             radius: mainObject.borderRadius
             anchors.centerIn: parent
 
-            ListModel {
-                id: imagesModel
-            }
+            ListModel {id: imagesModel}
 
             ListView {
                 id: imagesLV

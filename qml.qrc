@@ -27,5 +27,6 @@
         <file>resources/control_buttons/remove_image.png</file>
         <file>resources/control_buttons/add_video.png</file>
         <file>qml/common/TopDrawer.qml</file>
+        <file>qml/common/RemoveSliderImagesPopup.qml</file>
     </qresource>
 </RCC>
