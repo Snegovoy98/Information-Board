@@ -282,6 +282,17 @@ Page {
                 }
             }
         }
+
+        Label {
+            id: versionLbl
+            text: "v. 1.0.0."
+            font.family: settingsObject.fontFamily
+            font.pointSize: settingsObject.fontPointSize
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
+            }
+        }
     }
 
     RemoveSliderImagesPopup {
