@@ -12,6 +12,7 @@ Page {
     QtObject {
         id: settingsObject
         readonly property string fontFamily: "Decorative"
+        readonly property int fontPointMessageSize: 7
         readonly property int fontPointSize: 10
         readonly property int fontMenuPointSize: 10
         readonly property int buttonsSize: 25
@@ -25,8 +26,11 @@ Page {
         readonly property double sixtyPercent: 0.6
         readonly property double oneSecondPart: 1/2
         readonly property int topMargin: 5
+        readonly property string defaultColor: "green"
+        readonly property string errorColor: "red"
         readonly property string borderColor: "gray"
         readonly property int borderWidth: 1
+        readonly property int maxImagesCount: 15
     }
 
     property bool  manualSlide: true
@@ -64,7 +68,7 @@ Page {
     Rectangle {
         id: sliderSettingsRect
         width: parent.width
-        height: parent.height * settingsObject.twentyPercent
+        height: parent.height * settingsObject.thirtyPercent
 
         anchors {
             top: headerRect.bottom
@@ -100,7 +104,8 @@ Page {
             }
 
             RowLayout {
-                anchors.fill: parent
+                width: parent.width
+                height: parent.height
 
                 Image {
                     id: uploadBtn
@@ -139,7 +144,14 @@ Page {
         FileDialog {
             id: sliderImagesDialog
             nameFilters: ["Images files: *.jpg *.jpeg *.png"]
-            onAccepted: setImagePath(sliderImagesDialog.selectedFile)
+            onAccepted: {
+                if(mainPage.modelProperty.count <= settingsObject.maxImagesCount) {
+                    setImagePath(sliderImagesDialog.selectedFile)
+                    helperMessage.color = settingsObject.defaultColor
+                } else {
+                    helperMessage.color = settingsObject.errorColor
+                }
+            }
         }
 
         Rectangle {
@@ -156,7 +168,7 @@ Page {
             }
 
             ButtonGroup {
-                buttons: column.children
+                id: group
             }
 
             ColumnLayout {
@@ -170,6 +182,13 @@ Page {
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
                     Layout.alignment: Qt.AlignLeft
+                    ButtonGroup.group: group
+                    onClicked: {
+                        if(manualSlideRB.checked) {
+                            manualSlide = true
+                            autoSlide = false
+                        }
+                    }
                 }
 
                 RadioButton {
@@ -179,7 +198,27 @@ Page {
                     font.pointSize: settingsObject.sevenPointsSize
                     Layout.alignment: Qt.AlignLeft
                     checked: false
+                    ButtonGroup.group: group
+                    onClicked: {
+                        if(autoSlideRB.checked) {
+                            autoSlide = true
+                            manualSlide = false
+                        }
+                    }
                 }
+            }
+        }
+
+        Label {
+            id: helperMessage
+            text: "Максимальное количество изображений - 15"
+            font.family: settingsObject.fontFamily
+            font.pointSize: settingsObject.fontPointMessageSize
+            font.italic: true
+            color: settingsObject.defaultColor
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                bottom: parent.bottom
             }
         }
     }
@@ -260,26 +299,14 @@ Page {
         height: parent.height * settingsObject.tenPercent
         anchors.bottom: parent.bottom
 
-        Button {
-            id: saveBtn
-            text: "Сохранить"
-            width: settingsObject.buttonWidth
-            height: settingsObject.controlsButtonsSize
+        Label {
+            id: messageLbl
+            text: "©Все права защищены"
             font.family: settingsObject.fontFamily
             font.pointSize: settingsObject.fontPointSize
-            highlighted: true
             anchors {
                 horizontalCenter: parent.horizontalCenter
-                verticalCenter: parent.verticalCenter
-            }
-            onClicked: {
-                if(manualSlideRB.checked) {
-                    manualSlide = true
-                    autoSlide = false
-                } else if(autoSlideRB.checked) {
-                    autoSlide = true
-                    manualSlide = false
-                }
+                bottom: parent.bottom
             }
         }
 
