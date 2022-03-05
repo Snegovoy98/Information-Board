@@ -291,6 +291,7 @@ Page {
     FileDialog {
         id: videoFileDialog
         nameFilters: ["Video files: *.mp4 *.avi"]
+        onAccepted: setVideoPath(videoFileDialog.selectedFile)
     }
 
     Rectangle {
