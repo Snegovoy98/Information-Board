@@ -32,7 +32,7 @@ ApplicationWindow {
         readonly property double borderWidth: 1
         readonly property string borderColor: "gray"
         readonly property double controlButtonsSize: 25
-        readonly property int sliderButtonsSize: 25
+        readonly property int buttonsSize: 25
         readonly property int sliderImageSize: 35
         readonly property int weatherIconSize: 10
         readonly property double fivePercent: 0.05
@@ -45,11 +45,13 @@ ApplicationWindow {
         readonly property double fiftyFivePercent: 0.55
         readonly property double sixtyFivePercent: 0.65
         readonly property double eightyPercent: 0.8
+        readonly property double eightySevenPercent: 0.87
         readonly property double ninetyPercent: 0.9
         readonly property double opacity: 0.55
         readonly property int oneImg: 1
         readonly property int firstIndex: 0
         readonly property int lastIndex: imagesLV.count - 1
+        property string videoPath: ""
     }
 
     property var modelProperty: imagesModel
@@ -63,7 +65,7 @@ ApplicationWindow {
         weatherCity.text = "Погода: " + jsonResult["location"]["name"]
         weatherIcon.source = "https:" + jsonResult["current"]["condition"]["icon"]
         weatherCondition.text = jsonResult["current"]["condition"]["text"]
-        temperatureLbl.text = jsonResult["current"]["temp_c"] + " ℃"
+        temperatureLbl.text = parseInt(jsonResult["current"]["temp_c"]) + " ℃"
         windValue.text = jsonResult["current"]["wind_kph"] + " км/ч"
         pressureValue.text = jsonResult["current"]["pressure_in"] + " мм"
         humidityValue.text = jsonResult["current"]["humidity"] +" %"
@@ -72,6 +74,10 @@ ApplicationWindow {
 
     function setImagePath(path) {
         imagesModel.append({"path": path})
+    }
+
+    function setVideoPath(path) {
+        mainObject.videoPath = path
     }
 
     TopDrawer {
@@ -349,7 +355,7 @@ ApplicationWindow {
                 delegate: Clock {city: cityName; shift: timeShift}
 
                 model: ListModel {
-                    ListElement {cityName: "Kiev"; timeShift: 2}
+                    ListElement {cityName: "Киев"; timeShift: 2}
                 }
             }
         }
@@ -424,8 +430,8 @@ ApplicationWindow {
             Image {
                 id: arrowLeftImg
                 source: "resources/buttons_img/arrow_left.png"
-                width: mainObject.sliderButtonsSize
-                height: mainObject.sliderButtonsSize
+                width: mainObject.buttonsSize
+                height: mainObject.buttonsSize
                 visible: {
                     if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex <= mainObject.firstIndex || settingsPage.autoSlide) {
                         false
@@ -449,8 +455,8 @@ ApplicationWindow {
             Image {
                 id: arrowRightImg
                 source: "resources/buttons_img/arrow_right.png"
-                width: mainObject.sliderButtonsSize
-                height: mainObject.sliderButtonsSize
+                width: mainObject.buttonsSize
+                height: mainObject.buttonsSize
 
                 visible: {
                     if(imagesLV.count <= mainObject.oneImg || imagesLV.currentIndex >= mainObject.lastIndex || settingsPage.autoSlide) {
@@ -496,35 +502,17 @@ ApplicationWindow {
         }
 
         Rectangle {
-            id: titleRect
-            width: parent.width
-            height:   parent.height * mainObject.tenPercent
-            border.color: mainObject.borderColor
-            border.width: mainObject.borderWidth
-
-            Label {
-                id: videoTitleLbl
-                text: "Название видео"
-                font.family: mainObject.fontFamily
-                font.pointSize: mainObject.fontPointSize
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
-                    verticalCenter: parent.vetricalCenter
-                }
-            }
-        }
-
-        Rectangle {
             id: videoContentRect
             width: parent.width * mainObject.ninetyPercent
-            height: parent.height * mainObject.fiftyFivePercent
+            height: parent.height * mainObject.eightySevenPercent
             anchors {
-                top: titleRect.bottom
+                top: parent.top
                 horizontalCenter: parent.horizontalCenter
             }
 
             MediaPlayer {
                 id: mediaPlayer
+                source: mainObject.videoPath
                 audioOutput: AudioOutput{}
                 videoOutput: videoOutput
             }
@@ -533,10 +521,69 @@ ApplicationWindow {
                 id: videoOutput
                 anchors.fill: parent
             }
+        }
 
-            MouseArea {
-                anchors.fill: parent
-                onPressed: mediaPlayer.play()
+        Rectangle {
+            id: playButtonsRect
+            width: parent.width
+            height:   parent.height * mainObject.tenPercent
+            border.color: mainObject.borderColor
+            border.width: mainObject.borderWidth
+            anchors {
+                top: videoContentRect.bottom
+                bottom: parent.bottom
+            }
+
+            Loader {
+                id: playloader
+                anchors {
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                }
+                sourceComponent: playComponent
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                }
+            }
+
+
+            Component {
+                id: playComponent
+
+                Image {
+                    source: "resources/buttons_img/play.png"
+                    sourceSize.width: mainObject.buttonsSize
+                    sourceSize.height: mainObject.buttonsSize
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            mediaPlayer.play()
+                            playloader.sourceComponent = stopComponent
+                        }
+                    }
+                }
+            }
+
+            Component {
+                id: stopComponent
+
+                Image {
+                    source: "resources/buttons_img/pause.png"
+                    sourceSize.width: mainObject.buttonsSize
+                    sourceSize.height: mainObject.buttonsSize
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            mediaPlayer.stop()
+                            playloader.sourceComponent = playComponent
+                        }
+                    }
+                }
             }
         }
     }
