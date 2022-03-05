@@ -88,12 +88,19 @@ Popup {
                         }
 
                         onClicked: {
-                             if(imagesCB.checkState === Qt.Checked) {
+                             if(imagesCB.checked && sliderImagesPropertyObject.indexesArray.indexOf(index)) {
                                     sliderImagesPropertyObject.indexesArray.push(index)
-                             } else if(imagesCB.checkState === Qt.Unchecked) {
-                                 if(sliderImagesPropertyObject.indexesArray.indexOf(index))
-                                        sliderImagesPropertyObject.indexesArray.pop(index)
+                             } else {
+                                    sliderImagesPropertyObject.indexesArray.pop(index)
                              }
+                        }
+
+                        onDoubleClicked: {
+                            if(imagesCB.checked && sliderImagesPropertyObject.indexesArray.indexOf(index)) {
+                                   sliderImagesPropertyObject.indexesArray.push(index)
+                            } else {
+                                   sliderImagesPropertyObject.indexesArray.pop(index)
+                            }
                         }
                     }
                 }
@@ -123,8 +130,8 @@ Popup {
             }
 
             onClicked: {
-                for(var index = 0; index < sliderImagesPropertyObject.indexesArray.length; ++index) {
-                   imagesModel.remove(sliderImagesPropertyObject.indexesArray[index])
+                for(var index = 0; index < sliderImagesPropertyObject.indexesArray.length;) {
+                    imagesModel.remove(sliderImagesPropertyObject.indexesArray.indexOf(index))
                     sliderImagesPropertyObject.indexesArray.pop(index)
                 }
             }
