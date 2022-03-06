@@ -484,7 +484,8 @@ ApplicationWindow {
             interval: 5000
             running: settingsPage.autoSlide? true : false
             repeat: true
-            onTriggered: imagesLV.count > mainObject.oneImg && imagesLV.currentIndex >= 0 && imagesLV.currentIndex < mainObject.lastIndex? imagesLV.incrementCurrentIndex() : imagesLV.currentIndex = 0
+            onTriggered: imagesLV.count > mainObject.oneImg && imagesLV.currentIndex >= 0 && imagesLV.currentIndex < mainObject.lastIndex?
+                             imagesLV.incrementCurrentIndex() : imagesLV.currentIndex = 0
         }
     }
 
@@ -503,8 +504,9 @@ ApplicationWindow {
 
         Rectangle {
             id: videoContentRect
-            width: parent.width * mainObject.ninetyPercent
+            width: parent.width
             height: parent.height * mainObject.eightySevenPercent
+
             anchors {
                 top: parent.top
                 horizontalCenter: parent.horizontalCenter
@@ -520,8 +522,11 @@ ApplicationWindow {
             VideoOutput {
                 id: videoOutput
                 anchors.fill: parent
+                fillMode: VideoOutput.Stretch
             }
         }
+
+
 
         Rectangle {
             id: playButtonsRect
