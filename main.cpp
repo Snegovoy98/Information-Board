@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include "weatherparser.h"
 #include <QQmlContext>
+#include <QIcon>
 
 
 
@@ -12,6 +13,10 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
+
+    QIcon icon(":/resources/logo/logo.png");
+
+    app.setWindowIcon(icon);
 
     std::unique_ptr<WeatherParser> parser = std::make_unique<WeatherParser>();
 

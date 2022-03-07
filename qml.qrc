@@ -30,5 +30,6 @@
         <file>qml/common/RemoveSliderImagesPopup.qml</file>
         <file>resources/buttons_img/play.png</file>
         <file>resources/buttons_img/pause.png</file>
+        <file>resources/logo/logo.png</file>
     </qresource>
 </RCC>
