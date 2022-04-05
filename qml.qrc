@@ -1,6 +1,34 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>resources/background_images/Background.jpg</file>
+        <file>resources/slider_images/Phoenix.jpg</file>
+        <file>resources/buttons_img/arrow_left.png</file>
+        <file>resources/buttons_img/arrow_right.png</file>
+        <file>qml/common/Clock.qml</file>
+        <file>resources/clock_images/clock.png</file>
+        <file>resources/clock_images/hour.png</file>
+        <file>resources/clock_images/minute.png</file>
+        <file>resources/clock_images/quit.png</file>
+        <file>resources/clock_images/second.png</file>
+        <file>resources/clock_images/center.png</file>
+        <file>resources/background_images/image.jpg</file>
+        <file>resources/buttons_img/close_btn.png</file>
+        <file>resources/buttons_img/open_btn.png</file>
+        <file>resources/buttons_img/settings.png</file>
+        <file>SettingsPage.qml</file>
+        <file>resources/buttons_img/main_page.png</file>
+        <file>resources/weather_icons/cloud.png</file>
+        <file>resources/weather_icons/humidity.png</file>
+        <file>resources/weather_icons/pressure.png</file>
+        <file>resources/weather_icons/wind.png</file>
+        <file>resources/background_images/cloudscape.jpg</file>
+        <file>resources/background_images/sunset.jpg</file>
+        <file>resources/control_buttons/add_image.png</file>
+        <file>resources/control_buttons/remove_image.png</file>
+        <file>resources/control_buttons/add_video.png</file>
+        <file>qml/common/TopDrawer.qml</file>
+        <file>qml/common/RemoveSliderImagesPopup.qml</file>
+        <file>resources/buttons_img/play.png</file>
+        <file>resources/buttons_img/pause.png</file>
     </qresource>
 </RCC>
