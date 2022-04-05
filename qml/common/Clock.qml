@@ -5,15 +5,17 @@ Item {
     id: clock
 
     width: {
+
         if(ListView.view && ListView.view.width > 200)
-            return ListView.view.width / Math.floor(ListView.view.width / 500.0);
+            return ListView.view.width / Math.floor(ListView.view.width / 240.0);
+
          else
             return 190;
     }
 
     height: {
         if(ListView.view && ListView.view.height > 240)
-            return ListView.view.height / Math.floor(ListView.view.height / 500.0);
+            return ListView.view.height / Math.floor(ListView.view.height / 240.0);
         else
             return 240;
     }
@@ -46,6 +48,7 @@ Item {
         width: 200; height: 240
 
         Image {id: background; source: "../../resources/clock_images/clock.png"; visible: true; anchors.horizontalCenter: parent.horizontalCenter}
+
         Image {
             x: 92.5; y: 27
             source: "../../resources/clock_images/hour.png"

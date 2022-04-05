@@ -12,6 +12,7 @@ Popup {
         id: sliderImagesPropertyObject
         readonly property string fontFamily: "Helvetica"
         readonly property int fontPointSize: 12
+        readonly property double tenPercent: 0.1
         readonly property double thirtyPercent: 0.3
         readonly property double fiftyPercent: 0.5
         readonly property double eightyPercent: 0.8
@@ -48,7 +49,7 @@ Popup {
 
             delegate: Rectangle {
                 id: mainDelegateRect
-                width: imagesView.width * sliderImagesPropertyObject.eightyPercent
+                width: imagesView.width
                 height: imagesView.height * sliderImagesPropertyObject.fiftyPercent
 
                 Rectangle {
@@ -74,7 +75,7 @@ Popup {
 
                 Rectangle {
                     id: checboxRect
-                    width: parent.width * sliderImagesPropertyObject.fiftyPercent
+                    width: parent.width * removeSliderImages.tenPercent
                     anchors {
                         verticalCenter: parent.verticalCenter
                         left: imgRect.right
@@ -120,7 +121,7 @@ Popup {
 
         Button {
             id: removeBtn
-            text: "Удалить"
+            text: "Remove"
             font.family: sliderImagesPropertyObject.fontFamily
             font.pointSize: sliderImagesPropertyObject.fontPointSize
             highlighted: true

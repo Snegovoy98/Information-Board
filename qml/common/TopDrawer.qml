@@ -19,22 +19,25 @@ Drawer {
 
         Image {
             id: mainPageLogo
-            width: mainObject.controlButtonsSize
-            height: mainObject.controlButtonsSize
+            sourceSize.width: mainObject.controlButtonsSize
+            sourceSize.height: mainObject.controlButtonsSize
             source: "../../resources/buttons_img/main_page.png"
             Layout.alignment: Qt.AlignHCenter
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: settingsPage.visible = false
+                onClicked: {
+                    settingsPage.visible = false
+                    topDrawer.close()
+                }
             }
         }
 
         Label {
             id: mainPageTitle
-            text: "Главная"
+            text: "Main"
             font.family: mainObject.fontFamily
-            font.pointSize: mainObject.menuElemsPointSize
+            font.pointSize: mainObject.sevenPoints
             Layout.alignment: Qt.AlignHCenter
         }
     }
@@ -48,8 +51,8 @@ Drawer {
 
         Image {
             id: settingsLogo
-            width: mainObject.controlButtonsSize
-            height: mainObject.controlButtonsSize
+            sourceSize.width: mainObject.controlButtonsSize
+            sourceSize.height: mainObject.controlButtonsSize
             source: "../../resources/buttons_img/settings.png"
             Layout.alignment: Qt.AlignHCenter
 
@@ -57,15 +60,16 @@ Drawer {
                 anchors.fill: parent
                 onClicked:  {
                     settingsPage.visible = true
+                    topDrawer.close()
                 }
             }
         }
 
         Label {
             id: settingsTitle
-            text: "Настройки"
+            text: "Settings"
             font.family: mainObject.fontFamily
-            font.pointSize: mainObject.menuElemsPointSize
+            font.pointSize: mainObject.sevenPoints
             Layout.alignment: Qt.AlignHCenter
         }
     }

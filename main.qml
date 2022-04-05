@@ -13,7 +13,6 @@ ApplicationWindow {
     visible: true
     title: qsTr("Information Board")
 
-
     Universal.accent: Universal.Green
     Universal.background: Universal.White
 
@@ -21,7 +20,6 @@ ApplicationWindow {
         id: mainObject
         readonly property string fontFamily: "Decorative"
         readonly property int sevenPoints: 7
-        readonly property int menuElemsPointSize: 7
         readonly property int weatherFontPointSize: 10
         readonly property int fontPointSize: 14
         readonly property int clockPointSize: 20
@@ -37,12 +35,9 @@ ApplicationWindow {
         readonly property int weatherIconSize: 10
         readonly property double fivePercent: 0.05
         readonly property double tenPercent: 0.1
-        readonly property double fifteenPercent: 0.15
         readonly property double thirtyPercent: 0.3
         readonly property double thirtyFivePercent: 0.35
-        readonly property double fourtyPercent: 0.4
         readonly property double fiftyPercent: 0.5
-        readonly property double fiftyFivePercent: 0.55
         readonly property double sixtyFivePercent: 0.65
         readonly property double eightyPercent: 0.8
         readonly property double eightySevenPercent: 0.87
@@ -52,24 +47,25 @@ ApplicationWindow {
         readonly property int firstIndex: 0
         readonly property int lastIndex: imagesLV.count - 1
         property string videoPath: ""
+        property int videoPositionValue: 0
     }
 
     property var modelProperty: imagesModel
 
     function getRequest() {
-        Weather.sendRequest("https://api.weatherapi.com/v1/current.json?key=25d45d652d4e42eeb5a63758220301&q=Киев&aqi=yes&lang=ru")
+        Weather.sendRequest("https://api.weatherapi.com/v1/current.json?key=25d45d652d4e42eeb5a63758220301&q=Kiev&aqi=yes&lang=en")
     }
 
     function resultHandler(result) {
         var jsonResult = JSON.parse(result.toString())
-        weatherCity.text = "Погода: " + jsonResult["location"]["name"]
+        weatherCity.text = "Weather: " + jsonResult["location"]["name"]
         weatherIcon.source = "https:" + jsonResult["current"]["condition"]["icon"]
         weatherCondition.text = jsonResult["current"]["condition"]["text"]
         temperatureLbl.text = parseInt(jsonResult["current"]["temp_c"]) + " ℃"
-        windValue.text = jsonResult["current"]["wind_kph"] + " км/ч"
-        pressureValue.text = jsonResult["current"]["pressure_in"] + " мм"
+        windValue.text = jsonResult["current"]["wind_kph"] + " km/h"
+        pressureValue.text = jsonResult["current"]["pressure_in"] + " mm"
         humidityValue.text = jsonResult["current"]["humidity"] +" %"
-        cloudValue.text    = jsonResult["current"]["cloud"] + " октант"
+        cloudValue.text    = jsonResult["current"]["cloud"] + " octant"
     }
 
     function setImagePath(path) {
@@ -109,7 +105,10 @@ ApplicationWindow {
                 id: weatherCity
                 font.family: mainObject.fontFamily
                 font.pointSize: mainObject.fontPointSize
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                    verticalCenter: parent.verticalCenter
+                }
             }
 
             Component.onCompleted: {
@@ -338,7 +337,10 @@ ApplicationWindow {
         radius: mainObject.borderRadius
         border.color: mainObject.borderColor
         border.width: mainObject.borderWidth
-        anchors.right: parent.right
+        anchors {
+            left: imgRect.right
+            right: parent.right
+        }
 
         BorderImage {
             anchors.fill: parent
@@ -352,10 +354,10 @@ ApplicationWindow {
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.ApplyRange
 
-                delegate: Clock {city: cityName; shift: timeShift}
+                delegate: Clock {shift: timeShift}
 
                 model: ListModel {
-                    ListElement {cityName: "Киев"; timeShift: 2}
+                    ListElement {timeShift: 2}
                 }
             }
         }
@@ -390,9 +392,9 @@ ApplicationWindow {
 
 
                 Label {
-                    text: "Добавьте изображение"
+                    text: "Add images"
                     font.family: mainObject.fontFamily
-                    font.pointSize: mainObject.menuElemsPointSize
+                    font.pointSize: mainObject.sevenPoints
                     font.italic: true
                     anchors {
                         horizontalCenter: parent.horizontalCenter
@@ -523,15 +525,25 @@ ApplicationWindow {
                 id: videoOutput
                 anchors.fill: parent
                 fillMode: VideoOutput.Stretch
+
+                Slider {
+                    id: slider
+                    width: parent.width
+                    anchors.bottom: parent.bottom
+                    value: mediaPlayer.position
+                    to: mediaPlayer.duration
+                    visible: mediaPlayer.hasVideo
+                    onPressedChanged: {
+                        mediaPlayer.setPosition(slider.value)
+                    }
+                }
             }
         }
-
-
 
         Rectangle {
             id: playButtonsRect
             width: parent.width
-            height:   parent.height * mainObject.tenPercent
+            height: parent.height * mainObject.tenPercent
             border.color: mainObject.borderColor
             border.width: mainObject.borderWidth
             anchors {
@@ -584,8 +596,10 @@ ApplicationWindow {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
+                            mainObject.videoPositionValue = slider.value
                             mediaPlayer.stop()
                             playloader.sourceComponent = playComponent
+                            mediaPlayer.setPosition(mainObject.videoPositionValue)
                         }
                     }
                 }
@@ -595,4 +609,3 @@ ApplicationWindow {
 
     SettingsPage {id: settingsPage; width: parent.width; height: parent.height; visible: false}
 }
-

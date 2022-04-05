@@ -82,7 +82,7 @@ Page {
 
             Label {
                 id: sliderTitleLbl
-                text: "Настройки слайдера"
+                text: "Slider settings"
                 font.family: settingsObject.fontFamily
                 font.pointSize: settingsObject.fontPointSize
 
@@ -177,7 +177,7 @@ Page {
 
                 RadioButton {
                     id: manualSlideRB
-                    text: "Вручную"
+                    text: "Manual"
                     checked: true
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
@@ -193,7 +193,7 @@ Page {
 
                 RadioButton {
                     id: autoSlideRB
-                    text: "Авто переключение"
+                    text: "Auto"
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.sevenPointsSize
                     Layout.alignment: Qt.AlignLeft
@@ -211,7 +211,7 @@ Page {
 
         Label {
             id: helperMessage
-            text: "Максимальное количество изображений - 15"
+            text: "Max count of images - 15"
             font.family: settingsObject.fontFamily
             font.pointSize: settingsObject.fontPointMessageSize
             font.italic: true
@@ -242,7 +242,7 @@ Page {
 
             Label {
                 id: videoSettingsTitleLbl
-                text: "Настройки видеоплеера"
+                text: "Videoplayer settings"
                 font.family: settingsObject.fontFamily
                 font.pointSize: settingsObject.fontPointSize
 
@@ -279,7 +279,7 @@ Page {
                 }
 
                 Label {
-                    text: "Добавить видео"
+                    text: "Add video"
                     font.family: settingsObject.fontFamily
                     font.pointSize: settingsObject.fontPointSize
                     Layout.alignment: Qt.AlignHCenter
@@ -302,7 +302,7 @@ Page {
 
         Label {
             id: messageLbl
-            text: "©Все права защищены"
+            text: "©All rights reserved"
             font.family: settingsObject.fontFamily
             font.pointSize: settingsObject.fontPointSize
             anchors {
@@ -313,7 +313,7 @@ Page {
 
         Label {
             id: versionLbl
-            text: "v. 1.0.0."
+            text: "v. 1.0.0"
             font.family: settingsObject.fontFamily
             font.pointSize: settingsObject.fontPointSize
             anchors {
