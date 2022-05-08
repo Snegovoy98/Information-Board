@@ -53,7 +53,7 @@ ApplicationWindow {
     property var modelProperty: imagesModel
 
     function getRequest() {
-        Weather.sendRequest("https://api.weatherapi.com/v1/current.json?key=25d45d652d4e42eeb5a63758220301&q=Kiev&aqi=yes&lang=en")
+        Weather.sendRequest("*****************************************************************")
     }
 
     function resultHandler(result) {
